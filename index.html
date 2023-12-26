@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item Switch</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url("images/home1.jpg");
+    }
+
+    nav {
+      text-align: center;
+      padding: 10px;
+    }
+
+    nav img {
+      width: 150px; /* Adjust the width as needed */
+      height: auto;
+      margin-right: 5px;
+    }
+
+    nav h1 {
+      display: inline;
+      color: blue;
+      font-size: 24px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px auto;
+    }
+
+    th, td {
+      border: 5px solid black; /* Set the border to bold and black */
+      text-align: left;
+      padding: 10px;
+      color: black; /* Set the text color to white */
+      font-weight: bold; /* Make the text bold */
+      
+    }
+    h2
+    {
+        color: white ;
+        background-color: black;
+        width: fit-content;
+        padding: 4px;
+        border-radius: 10px;
+        opacity: 70%;
+    }
+    
+
+  </style>
+</head>
+<body>
+  <nav>
+    <center>
+      <img src="images/logo1.png" alt="logo here">
+    </center>  
+  </nav>
+
+  <center>
+    <!-- First Table -->
+    <table id="table1">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Item Name</th>
+          <th>Price</th>
+          <th>Availability</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <!-- Add at least 15 items here -->
+        <tr>
+          <b>
+            <td>1</td>
+            <td>Paneer Butter Masala</td>
+            <td>&#8377;260.00</td></b>
+            <td><input type="checkbox" class="Availability" data-item="item1"></td>
+          
+        </tr>
+        <!-- Add more items as needed -->
+        <tr>
+          <td>2</td>
+          <td>Mushroom tikka</td>
+          <td>&#8377;250.00</td>
+          <td><input type="checkbox" class="Availability" data-item="item2"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Chicken lollipop</td>
+          <td>&#8377;349.00</td>
+          <td><input type="checkbox" class="Availability" data-item="item2"></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Crab fry</td>
+          <td>&#8377;560.00</td>
+          <td><input type="checkbox" class="Availability" data-item="item2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </center>
+
+  <center>
+    <!-- Second Table -->
+    <h2>Items-- Ready To Serve</h2>
+    <table id="table2">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Item Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="table2-body">
+        <!-- Items with power on will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const Availability = document.querySelectorAll('.Availability');
+        const table1Body = document.getElementById('table1').querySelector('tbody');
+        const table2Body = document.getElementById('table2-body');
+
+        Availability.forEach(function (Availability) {
+          Availability.addEventListener('change', function () {
+            const itemName = this.dataset.item;
+            const itemRow = this.closest('tr');
+
+            if (this.checked) {
+              // Add a new row to Table 2
+              const newRow = document.createElement('tr');
+              newRow.innerHTML = `
+                <td>${itemRow.children[0].textContent}</td>
+                <td>${itemRow.children[1].textContent}</td>
+                <td>${itemRow.children[2].textContent}</td>
+              `;
+              table2Body.appendChild(newRow);
+            } else {
+              // Remove the last row from Table 2
+              const rowsInTable2 = table2Body.querySelectorAll('tr');
+              if (rowsInTable2.length > 0) {
+                table2Body.removeChild(rowsInTable2[rowsInTable2.length - 1]);
+              }
+            }
+          });
+        });
+      });
+    </script>
+  </center>
+</body>
+</html>
